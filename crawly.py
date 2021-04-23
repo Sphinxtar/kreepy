@@ -1,18 +1,22 @@
 #!/bin/python -d
 import requests
+import datetime
+import re
 from bs4 import BeautifulSoup
 
 homepage = "https://glhtracker.automationtrainer.com"
 hrefs = []
+stamp = datetime.datetime.now().replace(microsecond=0).isoformat()
 
 def probe(site,top):
     if (top):
-        print("<site>")
-    print("<link>")
-    print("<url>" + site + "</url>")
+        crawlydoc.write("<site>")
+    crawlydoc.write("<link>")
+    crawlydoc.write("<url>"+site+"</url>")
     apage = requests.get(site) 
-    print("<status>"+str(apage.status_code)+"</status>")
-    print("</link>")
+    crawlydoc.write("<status>"+str(apage.status_code)+"</status>")
+    crawlydoc.write("<check>"+stamp+"</check>")
+    crawlydoc.write("</link>")
     soup = BeautifulSoup(apage.content, features="lxml")
     links = soup.find_all("a")
     for link in links:
@@ -20,6 +24,9 @@ def probe(site,top):
             hrefs.append(link.get("href"))
             probe(link.get("href"),0)
     if (top):
-        print("</site>")
+        crawlydoc.write("</site>")
 
-probe(homepage,1)
+file='crawly.xml' 
+with open(file, 'w') as crawlydoc:
+    probe(homepage,1)
+    crawlydoc.close()
