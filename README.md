@@ -1,2 +1,2 @@
 # Kreepy Crawly
-Web Crawler Builds XML Map For XSLT Visualization 
+Web Crawler Recursively Crawls Website With Status in XML For XSLT Output
