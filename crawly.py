@@ -26,9 +26,6 @@ def probe(site,top):
 	if (top):
 		crawlydoc.write("</site>")
 
-#homepage = "https://glhtracker.automationtrainer.com"
-#file = "crawly.xml"
-
 if  len(sys.argv) < 2:
 	print("\nUsage: crawly.py <Filename.xml> <Base URL To Crawl>\n\n")
 	quit()
